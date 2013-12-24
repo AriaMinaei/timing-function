@@ -91,3 +91,7 @@ module.exports = class UnitBezier
 	solve: (x, epsilon) ->
 
 		@sampleCurveY @solveCurveX(x, epsilon)
+
+	solveSimple: (x) ->
+
+		@sampleCurveY @solveCurveX(x, 1e-6)

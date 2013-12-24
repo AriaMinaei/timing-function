@@ -5,6 +5,8 @@ UnitBezier = require './UnitBezier'
 # See http://easings.net
 module.exports = timingFunction =
 
+	UnitBezier: UnitBezier
+
 	# Linear easing
 	linear: (p) -> p
 
@@ -47,7 +49,7 @@ module.exports = timingFunction =
 
 			return (p) ->
 
-				b.solve p, UnitBezier.epsilon
+				b.solveSimple p
 
 		unless typeof func is 'string'
 
