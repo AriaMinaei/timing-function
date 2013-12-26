@@ -11,6 +11,10 @@ module.exports = class UnitBezier
 
 	constructor: (p1x, p1y, p2x, p2y) ->
 
+		@set p1x, p1y, p2x, p2y
+
+	set: (p1x, p1y, p2x, p2y) ->
+
 		# pre-calculate the polynomial coefficients
 		# First and last control points are implied to be (0,0) and (1.0, 1.0)
 		@cx = 3.0 * p1x
@@ -19,6 +23,8 @@ module.exports = class UnitBezier
 		@cy = 3.0 * p1y
 		@by = 3.0 * (p2y - p1y) - @cy
 		@ay = 1.0 - @cy - @by
+
+		return
 
 	@epsilon: 1e-6 # Precision
 
