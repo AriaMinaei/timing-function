@@ -56,12 +56,15 @@ module.exports = class UnitBezier
 		while i < 8
 
 			x2 = @sampleCurveX(t2) - x
-			return t2  if Math.abs(x2) < epsilon
+
+			return t2 if Math.abs(x2) < epsilon
 
 			d2 = @sampleCurveDerivativeX(t2)
-			break  if Math.abs(d2) < epsilon
+
+			break if Math.abs(d2) < epsilon
 
 			t2 = t2 - x2 / d2
+
 			i++
 
 		# No solution found - use bi-section
