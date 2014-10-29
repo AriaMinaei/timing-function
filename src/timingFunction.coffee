@@ -53,7 +53,7 @@ module.exports = timingFunction =
 
 		unless typeof func is 'string'
 
-			throw Error "func should either be a function or a string, like cubic.easeOut"
+			throw Error "func should either be a function or a string, like 'cubic.easeOut'"
 
 		parts = func.split '.'
 
@@ -65,7 +65,7 @@ module.exports = timingFunction =
 
 		if typeof f is 'undefined'
 
-			throw Error "Cannot find easing function `#{func}`"
+			throw Error "Cannot find easing function '#{func}'"
 
 		f
 
