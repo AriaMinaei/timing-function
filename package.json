@@ -1,6 +1,6 @@
 {
   "name": "timing-function",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Simple API for easing functions and Bezier curves",
   "main": "lib/timingFunction.js",
   "scripts": {
@@ -17,5 +17,13 @@
     "url": "https://github.com/AriaMinaei/timing-function.git"
   },
   "author": "Aria Minaei",
-  "license": "MIT"
+  "license": "MIT",
+  "keywords": [
+    "easing",
+    "bezier",
+    "cubic-bezier",
+    "animation",
+    "timing-function",
+    "tween"
+  ]
 }
