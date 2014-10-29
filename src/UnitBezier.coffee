@@ -17,30 +17,30 @@ module.exports = class UnitBezier
 
 		# pre-calculate the polynomial coefficients
 		# First and last control points are implied to be (0,0) and (1.0, 1.0)
-		@cx = 3.0 * p1x
-		@bx = 3.0 * (p2x - p1x) - @cx
-		@ax = 1.0 - @cx - @bx
-		@cy = 3.0 * p1y
-		@by = 3.0 * (p2y - p1y) - @cy
-		@ay = 1.0 - @cy - @by
+		@_cx = 3.0 * p1x
+		@_bx = 3.0 * (p2x - p1x) - @_cx
+		@_ax = 1.0 - @_cx - @_bx
+		@_cy = 3.0 * p1y
+		@_by = 3.0 * (p2y - p1y) - @_cy
+		@_ay = 1.0 - @_cy - @_by
 
 		return
 
 	@epsilon: 1e-6 # Precision
 
-	sampleCurveX: (t) ->
+	_sampleCurveX: (t) ->
 
-		((@ax * t + @bx) * t + @cx) * t
+		((@_ax * t + @_bx) * t + @_cx) * t
 
-	sampleCurveY: (t) ->
+	_sampleCurveY: (t) ->
 
-		((@ay * t + @by) * t + @cy) * t
+		((@_ay * t + @_by) * t + @_cy) * t
 
-	sampleCurveDerivativeX: (t) ->
+	_sampleCurveDerivativeX: (t) ->
 
-		(3.0 * @ax * t + 2.0 * @bx) * t + @cx
+		(3.0 * @_ax * t + 2.0 * @_bx) * t + @_cx
 
-	solveCurveX: (x, epsilon) ->
+	_solveCurveX: (x, epsilon) ->
 
 		t0 = undefined
 		t1 = undefined
@@ -55,11 +55,11 @@ module.exports = class UnitBezier
 
 		while i < 8
 
-			x2 = @sampleCurveX(t2) - x
+			x2 = @_sampleCurveX(t2) - x
 
 			return t2 if Math.abs(x2) < epsilon
 
-			d2 = @sampleCurveDerivativeX(t2)
+			d2 = @_sampleCurveDerivativeX(t2)
 
 			break if Math.abs(d2) < epsilon
 
@@ -78,7 +78,7 @@ module.exports = class UnitBezier
 
 		while t0 < t1
 
-			x2 = @sampleCurveX(t2)
+			x2 = @_sampleCurveX(t2)
 
 			return t2 if Math.abs(x2 - x) < epsilon
 
@@ -99,8 +99,8 @@ module.exports = class UnitBezier
 	# Find new T as a function of Y along curve X
 	solve: (x, epsilon) ->
 
-		@sampleCurveY @solveCurveX(x, epsilon)
+		@_sampleCurveY @_solveCurveX(x, epsilon)
 
 	solveSimple: (x) ->
 
-		@sampleCurveY @solveCurveX(x, 1e-6)
+		@_sampleCurveY @_solveCurveX(x, 1e-6)
