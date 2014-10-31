@@ -55,6 +55,30 @@ module.exports = timingFunction =
 
 			throw Error "func should either be a function or a string, like 'cubic.easeOut'"
 
+		if func.match /\,/
+
+			parts = func.split /\,/
+
+			if parts.length isnt 4
+
+				throw Error "Invalid func '#{func}'"
+
+			for part, i in parts
+
+				comp = parseFloat part.replace(/\s+/g, '')
+
+				unless isFinite comp
+
+					throw Error "Invalid number '#{part}' in '#{func}'"
+
+				parts[i] = comp
+
+			b = new UnitBezier parts[0], parts[1], parts[2], parts[3]
+
+			return (p) ->
+
+				b.solveSimple p
+
 		parts = func.split '.'
 
 		f = timingFunction
@@ -85,3 +109,11 @@ timingFunction.define
 	circ:	(p) -> 1 - Math.sin Math.cos p
 
 	sine:	(p) -> 1 - Math.cos p * Math.PI / 2
+
+isFinite = (value) ->
+
+	return no unless typeof value is 'number'
+
+	return no if value isnt value or value is Infinity or value is -Infinity
+
+	return yes
