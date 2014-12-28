@@ -118,8 +118,6 @@ timingFunction.define
 
 	bow: (p, x) -> Math.pow(p, 2) * ((x + 1) * p - x)
 
-	back: (p, x) -> Math.pow(p, 2) * ((x + 1) * p - x)
-
 	bounce: (p) ->
 
 		`for(var a = 0, b = 1, result; 1; a += b, b /= 2) {
