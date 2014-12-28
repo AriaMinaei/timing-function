@@ -28,16 +28,16 @@ module.exports = timingFunction =
 
 			easeIn: func
 
-			easeOut: (p) -> 1 - func( 1 - p )
+			easeOut: (p, x) -> 1 - func(1 - p, x)
 
-			easeInOut: (p) ->
+			easeInOut: (p, x) ->
 
 				if p <= 0.5
-					return 0.5 * func( p * 2 )
+					return 0.5 * func(p * 2, x)
 				else
-					return 0.5 * ( 2 - func( 2 * ( 1 - p ) ) )
+					return 0.5 * (2 - func(2 * (1 - p), x))
 
-	get: (func) ->
+	get: (func, x) ->
 
 		if func instanceof Function
 
@@ -91,6 +91,10 @@ module.exports = timingFunction =
 
 			throw Error "Cannot find easing function '#{func}'"
 
+		if x?
+
+			return (p) -> f(p, x)
+
 		f
 
 # Defining the standard easings
@@ -109,6 +113,26 @@ timingFunction.define
 	circ:	(p) -> 1 - Math.sin Math.cos p
 
 	sine:	(p) -> 1 - Math.cos p * Math.PI / 2
+
+	elastic: (p, x) -> Math.pow(2, 10 * (p - 1)) * Math.cos(20 * Math.PI * x / 3 * p)
+
+	bow: (p, x) -> Math.pow(p, 2) * ((x + 1) * p - x)
+
+	back: (p, x) -> Math.pow(p, 2) * ((x + 1) * p - x)
+
+	bounce: (p) ->
+
+		`for(var a = 0, b = 1, result; 1; a += b, b /= 2) {
+
+			if (p >= (7 - 4 * a) / 11) {
+
+				return -Math.pow((11 - 6 * a - 11 * p) / 4, 2) + Math.pow(b, 2)
+			}
+
+		}//`
+
+		return
+
 
 isFinite = (value) ->
 
