@@ -1,6 +1,6 @@
 {
   "name": "timing-function",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Simple API for easing functions and Bezier curves",
   "main": "lib/timingFunction.js",
   "scripts": {

@@ -51,6 +51,10 @@ module.exports = timingFunction =
 
 				b.solveSimple p
 
+		if Array.isArray func
+
+			return timingFunction.get.apply(null, func)
+
 		unless typeof func is 'string'
 
 			throw Error "func should either be a function or a string, like 'cubic.easeOut'"
